@@ -7,6 +7,11 @@ import uuid
 MAX_TITLE_LENGTH = 200
 MAX_INGREDIENTS = 50
 
+# Recipe schema (Jamie's requirements):
+# - instructions: array of separate step strings (not a single text block)
+# - cuisine: dedicated cuisine/region string field
+# - difficulty: removed (subjective and unhelpful)
+
 class Recipe(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     title: str 
