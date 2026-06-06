@@ -20,7 +20,7 @@ def get_recipes(search: Optional[str] = None):
     # Log for debugging (remove in production)
     print(f"Returning {len(recipes)} recipes")
     
-    return [recipe.model_dump(mode="json") for recipe in recipes]
+    return {"recipes": recipes}
 
 
 @router.get("/recipes/{recipe_id}")
