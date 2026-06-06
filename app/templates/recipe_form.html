@@ -83,8 +83,8 @@
             <div class="mb-4">
                 <label class="form-label">Steps</label>
                 <div id="instructions-container">
-                    {% if recipe and recipe.steps %}
-                        {% for step in recipe.steps %}
+                    {% if recipe and recipe.instructions %}
+                        {% for step in recipe.instructions %}
                         <div class="instruction-item mb-2">
                             <div class="input-group">
                                 <span class="input-group-text">{{ loop.index }}</span>
@@ -107,7 +107,7 @@
                 <button type="button" id="add-instruction" class="btn btn-outline-primary btn-sm">
                     + Add Step
                 </button>
-                <textarea name="steps" id="steps-data" style="display: none;"></textarea>
+                <textarea name="instructions" id="instructions-data" style="display: none;"></textarea>
             </div>
             
             <!-- Submit Buttons -->
@@ -134,13 +134,13 @@ document.querySelector('form').addEventListener('submit', function(e) {
     });
     document.getElementById('ingredients-data').value = ingredients.join('\n');
 
-    const steps = [];
+    const instructions = [];
     document.querySelectorAll('.instruction-input').forEach(input => {
         if (input.value.trim()) {
-            steps.push(input.value.trim());
+            instructions.push(input.value.trim());
         }
     });
-    document.getElementById('steps-data').value = steps.join('\n');
+    document.getElementById('instructions-data').value = instructions.join('\n');
 });
 </script>
 {% endblock %}

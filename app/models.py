@@ -12,7 +12,7 @@ class Recipe(BaseModel):
     title: str 
     description: str
     ingredients: List[str]
-    steps: List[str]
+    instructions: List[str]
     tags: List[str] = Field(default_factory=list)
     cuisine: str
     created_at: datetime = Field(default_factory=datetime.now)
@@ -23,7 +23,7 @@ class RecipeCreate(BaseModel):
     title: str
     description: str
     ingredients: List[str]
-    steps: List[str]
+    instructions: List[str]
     tags: List[str] = Field(default_factory=list)
     cuisine: str
 
@@ -32,6 +32,6 @@ class RecipeUpdate(BaseModel):
     title: str
     description: str
     ingredients: List[str]
-    steps: List[str]
+    instructions: List[str]
     tags: List[str]
     cuisine: str
