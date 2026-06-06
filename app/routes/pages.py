@@ -64,9 +64,9 @@ def create_recipe_form(
     request: Request,
     title: str = Form(...),
     description: str = Form(...),
-    difficulty: str = Form(...),
+    cuisine: str = Form(...),
     ingredients: str = Form(...),
-    instructions: str = Form(...),
+    steps: str = Form(...),
     tags: str = Form(...)
 ):
     """Handle new recipe form submission"""
@@ -75,23 +75,24 @@ def create_recipe_form(
         if len(title) > 200:
             raise ValueError("Title too long")
         
-        # Parse ingredients (one per line) and tags (comma-separated)
+        # Parse ingredients (one per line), steps (one per line), and tags (comma-separated)
         ingredient_list = [ing.strip() for ing in ingredients.split('\n') if ing.strip()]
+        step_list = [step.strip() for step in steps.split('\n') if step.strip()]
         tag_list = [tag.strip() for tag in tags.split(',') if tag.strip()]
         
         # Validation
         if len(ingredient_list) == 0:
             raise ValueError("At least one ingredient required")
         
-        if not instructions.strip():
-            raise ValueError("Instructions are required")
+        if len(step_list) == 0:
+            raise ValueError("At least one step is required")
         
         recipe_data = RecipeCreate(
             title=title,
             description=description,
-            difficulty=difficulty,
+            cuisine=cuisine.strip(),
             ingredients=ingredient_list,
-            instructions=instructions.strip(),
+            steps=step_list,
             tags=tag_list
         )
         
@@ -113,9 +114,9 @@ def update_recipe_form(
     recipe_id: str,
     title: str = Form(...),
     description: str = Form(...),
-    difficulty: str = Form(...),
+    cuisine: str = Form(...),
     ingredients: str = Form(...),
-    instructions: str = Form(...),
+    steps: str = Form(...),
     tags: str = Form(...)
 ):
     """Handle edit recipe form submission"""
@@ -124,22 +125,23 @@ def update_recipe_form(
         if len(title) > 200:
             raise ValueError("Title is too long!")
         
-        # Parse ingredients (one per line) and tags (comma-separated)
+        # Parse ingredients (one per line), steps (one per line), and tags (comma-separated)
         ingredient_list = [ing.strip() for ing in ingredients.split('\n') if ing.strip()]
+        step_list = [step.strip() for step in steps.split('\n') if step.strip()]
         tag_list = [tag.strip() for tag in tags.split(',') if tag.strip()]
         
         if len(ingredient_list) == 0:
             raise ValueError("Need ingredients!")
             
-        if not instructions.strip():
-            raise ValueError("Instructions are required")
+        if len(step_list) == 0:
+            raise ValueError("At least one step is required")
         
         recipe_data = RecipeUpdate(
             title=title,
             description=description,
-            difficulty=difficulty,
+            cuisine=cuisine.strip(),
             ingredients=ingredient_list,
-            instructions=instructions.strip(),
+            steps=step_list,
             tags=tag_list
         )
         
