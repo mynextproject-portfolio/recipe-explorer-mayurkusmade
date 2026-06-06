@@ -22,7 +22,8 @@ def test_get_all_recipes(client, clean_storage):
     response = client.get("/api/recipes")
     assert response.status_code == 200
     data = response.json()
-    assert isinstance(data, list)
+    assert "recipes" in data
+    assert isinstance(data["recipes"], list)
 
 
 def test_create_and_get_recipe(client, clean_storage, sample_recipe_data):
